@@ -62,4 +62,7 @@ t = pd.read_csv("spambase.data", names=['word_freq_make'
                 ,'isSpam'])
 
 #on récupère la variable isSpam
-y = t.pop('isSpam').values
+valspam = t.pop('isSpam').values
+
+t.pop('word_freq_650')
+t.pop('word_freq_george')
