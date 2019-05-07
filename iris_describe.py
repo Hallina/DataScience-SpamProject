@@ -16,6 +16,7 @@ print("==========================")
 
 # Prints the type/type object of iris
 print(type(iris))
+
 # <class 'sklearn.datasets.base.Bunch'>
 
 # prints the dictionary keys of iris data

@@ -14,5 +14,10 @@ def importcsv():
             importation.append(row)
         csvfile.close()
 
+    return importation
 
-importcsv()
+
+
+
+data = importcsv()
+#print(data[0:10])
