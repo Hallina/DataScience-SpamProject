@@ -1,7 +1,9 @@
 #!/bin/python3
 
 import pandas as pd
+import numpy as np
 import csv
+
 importation = list()
 
 '''t = pd.read_csv("spambase.data", names=['word_freq_make'
@@ -64,11 +66,17 @@ importation = list()
                 ,'isSpam'])
 '''
 
+# shuffle du dataset de base 
+t.reindex(np.random.permutation(t.index))
+
+
+
 #on récupère la variable isSpam
 #valspam = t.pop('isSpam').values
 
 
 def importcsv(pathFile):
+
     firstline = False
     with open(pathFile, encoding='ascii', newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
@@ -80,7 +88,8 @@ def importcsv(pathFile):
     return importation
 
 
-
-
 #data = importcsv()
 #print(data[0:10])
+
+t.pop('word_freq_650')
+t.pop('word_freq_george')
