@@ -53,7 +53,7 @@ for nbClassifiers in range(len(classifiers)):
     for line in data:
         listLine = []
         for k in range(len(line)):
-            if k != 27 and k != 28 and k != 32 and k!=57:
+            if k != 27 and k != 28 and k != 31 and k!=57:
                 listLine.append(line[k])
         usedValue.append(line[-1])
         usedData.append(listLine)

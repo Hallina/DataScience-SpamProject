@@ -4,7 +4,7 @@ import pandas as pd
 import csv
 importation = list()
 
-t = pd.read_csv("spambase.data", names=['word_freq_make'
+'''t = pd.read_csv("spambase.data", names=['word_freq_make'
                 ,'word_freq_address'
                 ,'word_freq_all'
                 ,'word_freq_3d'
@@ -62,14 +62,15 @@ t = pd.read_csv("spambase.data", names=['word_freq_make'
                 ,'capital_run_length_longest'
                 ,'capital_run_length_total'
                 ,'isSpam'])
+'''
 
 #on récupère la variable isSpam
-valspam = t.pop('isSpam').values
+#valspam = t.pop('isSpam').values
 
-<<<<<<< HEAD
-def importcsv():
+
+def importcsv(pathFile):
     firstline = False
-    with open("spambase.data", encoding='ascii', newline='') as csvfile:
+    with open(pathFile, encoding='ascii', newline='') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         global importation
         for row in reader:
@@ -81,8 +82,5 @@ def importcsv():
 
 
 
-data = importcsv()
+#data = importcsv()
 #print(data[0:10])
-=======
-onflit.pop('word_freq_650')
-t.pop('word_freq_george')
