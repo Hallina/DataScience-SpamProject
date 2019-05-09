@@ -4,11 +4,12 @@ from sklearn import svm
 from sklearn import metrics
 
 from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
 
 import matplotlib.pyplot as plt
 
-train, test = train_test_split(importation.t, test_size=0.5)
-spamtrain, spamtest = train_test_split(importation.valspam, test_size=0.5)
+train, test = train_test_split(importation.t, test_size=0.1)
+spamtrain, spamtest = train_test_split(importation.valspam, test_size=0.1)
 
 
 clf = svm.SVC(gamma='scale')

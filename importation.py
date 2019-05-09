@@ -1,6 +1,7 @@
 #!/bin/python3
 
 import pandas as pd
+import numpy as np
 import csv
 
 importation = list()
@@ -63,6 +64,9 @@ t = pd.read_csv("spambase.data", names=['word_freq_make'
                 ,'capital_run_length_longest'
                 ,'capital_run_length_total'
                 ,'isSpam'])
+
+# shuffle du dataset de base 
+t.reindex(np.random.permutation(t.index))
 
 
 
