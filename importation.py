@@ -68,7 +68,6 @@ t = pd.read_csv("spambase.data", names=['word_freq_make'
 #on récupère la variable isSpam
 valspam = t.pop('isSpam').values
 
-<<<<<<< HEAD
 def importcsv():
     firstline = False
     with open("spambase.data", encoding='ascii', newline='') as csvfile:
@@ -80,11 +79,5 @@ def importcsv():
 
     return importation
 
-
-
-
-data = importcsv()
-#print(data[0:10])
-=======
-onflit.pop('word_freq_650')
+t.pop('word_freq_650')
 t.pop('word_freq_george')
