@@ -1,0 +1,146 @@
+names = ["Nearest Neighbors",  "RBF SVM", "Decision Tree", "Random Forest", "Neural Net", "AdaBoost",
+         "Naive Bayes", "QDA"]
+         
+classifiers = [
+    KNeighborsClassifier(3),
+    SVC(gamma=2, C=1),
+    #GaussianProcessClassifier(1.0 * RBF(1.0)),
+    DecisionTreeClassifier(max_depth=5),
+    RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
+    MLPClassifier(alpha=1),
+    AdaBoostClassifier(),
+    GaussianNB(),
+    QuadraticDiscriminantAnalysis()]
+
+
+echatillon de test : 100
+
+Nearest Neighbors
+81.0
+19.0
+
+RBF SVM
+100.0
+0.0
+
+Decision Tree
+95.0
+5.0
+
+Random Forest
+83.0
+17.0
+
+Neural Net
+90.0
+10.0
+
+AdaBoost
+95.0
+5.0
+
+Naive Bayes
+80.0
+20.0
+
+QDA
+81.0
+19.0
+
+
+
+
+
+/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6 /Users/David/Documents/GitHub/DataScience-SpamProject/multi_classifiers.py
+Nearest Neighbors
+87.0
+13.0
+RBF SVM
+100.0
+0.0
+Decision Tree
+93.0
+7.000000000000001
+Random Forest
+88.0
+12.0
+Neural Net
+91.0
+9.0
+AdaBoost
+94.0
+6.0
+Naive Bayes
+80.0
+20.0
+QDA
+84.0
+16.0
+
+
+
+
+
+
+
+
+
+#############@Avec 1000 tests ########
+
+
+/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6 /Users/David/Documents/GitHub/DataScience-SpamProject/multi_classifiers.py
+Nearest Neighbors
+84.39999999999999
+15.6
+RBF SVM
+99.9
+0.1
+Decision Tree
+91.60000000000001
+8.4
+Random Forest
+87.8
+12.2
+Neural Net
+93.10000000000001
+6.9
+AdaBoost
+94.8
+5.2
+Naive Bayes
+80.5
+19.5
+QDA
+80.9
+19.1
+
+
+
+
+
+
+/Library/Frameworks/Python.framework/Versions/3.6/bin/python3.6 /Users/David/Documents/GitHub/DataScience-SpamProject/multi_classifiers.py
+Nearest Neighbors
+86.5
+13.5
+RBF SVM
+99.8
+0.2
+Decision Tree
+92.10000000000001
+7.9
+Random Forest
+85.5
+14.499999999999998
+Neural Net
+94.1
+5.8999999999999995
+AdaBoost
+94.8
+5.2
+Naive Bayes
+81.69999999999999
+18.3
+QDA
+81.8
+18.2
