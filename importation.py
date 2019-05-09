@@ -61,6 +61,8 @@ t = pd.read_csv("spambase.data", names=['word_freq_make'
                 ,'capital_run_length_total'
                 ,'isSpam'])
 
+
+
 #on récupère la variable isSpam
 valspam = t.pop('isSpam').values
 
