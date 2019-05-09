@@ -11,7 +11,7 @@ train, test = train_test_split(importation.t, test_size=0.5)
 spamtrain, spamtest = train_test_split(importation.valspam, test_size=0.5)
 
 
-clf = svm.SVC(C=1.0, kernel="rbf")
+clf = svm.SVC(gamma='scale')
 
 clf.fit(train, spamtrain)
 
