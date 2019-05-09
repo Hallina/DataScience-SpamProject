@@ -2,6 +2,7 @@
 
 import pandas as pd
 import csv
+
 importation = list()
 
 t = pd.read_csv("spambase.data", names=['word_freq_make'
