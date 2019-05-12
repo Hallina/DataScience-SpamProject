@@ -45,23 +45,23 @@ def drawSimilarities(listPlaceOfWordToCompare, precision, valueToCompare, pathFi
 
         results = []
         nbPlot = 1
-        for type in ["<value", "value<"]:
+        for type in [spamClasses, nonSpamClasses]:
             try :
-                totalType = len(spamClasses[type]) + len(nonSpamClasses[type])
-                totalSpam = len(spamClasses[type])/totalType
-                totalNonSpam = len(nonSpamClasses[type])/totalType
+                totalType = len(type["value<"]) + len(type["<value"])
+                totalInf = len(type["<value"])/totalType
+                totalSup = len(type["value<"])/totalType
             except:
-                totalType, totalSpam, totalNonSpam = 0,0,0
+                totalInf, totalSup, totalNonSpam = 0,0,0
 
-            results.append(totalSpam)
-            results.append(totalNonSpam)
+            results.append(totalInf)
+            results.append(totalSup)
             if draw:
-                labels = "Spam", "Non Spam"
-                sizes = [totalSpam, totalNonSpam]
+                labels = "value<", "value >"
+                sizes = [totalInf, totalSup]
                 colors = ['yellowgreen', 'lightskyblue']
                 plt.subplot(210+nbPlot)
                 nbPlot+=1
-                plt.title("For : " + str(type) + " : " + str(valueToCompare) + " for the word nb : " + str(placeOfWordToCompare) + " with a number of " + str(totalType) + " emails concerned")
+                plt.title("For : " + " : " + str(valueToCompare) + " for the word nb : " + str(placeOfWordToCompare) + " with a number of " + str(totalType) + " emails concerned")
                 plt.pie(sizes, labels=labels, colors=colors,
                         autopct='%1.1f%%', shadow=True, startangle=90)
 
@@ -84,7 +84,7 @@ def drawSimilarities(listPlaceOfWordToCompare, precision, valueToCompare, pathFi
     return nbOk
 
 
-print(drawSimilarities(range(57), 1.5, 0.2, "../spambase.data"))
+print(drawSimilarities(range(57), 1., 0.2, "../spambase.data"))
 
 '''
 
