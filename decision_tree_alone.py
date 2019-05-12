@@ -44,12 +44,15 @@ usedValue = np.array(usedValue)
 testSetX = np.array(testSetX)
 testSetY = np.array(testSetY)
 
-print(usedData[:1])
+#print(usedData[:1])
 clf = tree.DecisionTreeClassifier()
 clf = clf.fit(usedData, usedValue)
 print(clf.score(testSetX, testSetY))
+#print(clf.predict(testSetX))
 
+#print(clf.decision_path(testSetX))
 
+#print(clf.get_params())
 
 #a = clf.predict(testSetX)
 #print(a)

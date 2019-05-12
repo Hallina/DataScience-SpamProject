@@ -34,20 +34,20 @@ names = ["Nearest Neighbors",  "RBF SVM", #"Gaussian Process",
          "Decision Tree", "Random Forest", "Neural Net", "AdaBoost",
          "Naive Bayes", "QDA"] #"Linear SVM"]
 
+rowData = importcsv("spambase.data")
+data = []
+for line in rowData:
+    listLine = []
+    for value in  line:
+        listLine.append(float(value))
+    data.append(listLine)
+
 
 for nbClassifiers in range(len(classifiers)):
 
     print(names[nbClassifiers])
 
     # Load data
-    rowData = importcsv()
-    data = []
-    for line in rowData:
-        listLine = []
-        for value in  line:
-            listLine.append(float(value))
-        data.append(listLine)
-
     usedData = []
     usedValue = []
     for line in data:
@@ -64,7 +64,7 @@ for nbClassifiers in range(len(classifiers)):
 
     testSetX = []
     testSetY = []
-    for k in range(250):
+    for k in range(1000):
         placeToTakeForTest = int(random() * len(usedData))
         x = usedData.pop(placeToTakeForTest)
         y = usedValue.pop(placeToTakeForTest)
@@ -94,9 +94,4 @@ for nbClassifiers in range(len(classifiers)):
         else:
             bad+=1
 
-
-
-    print((good/(good+bad))*100)
-    print((bad/(good+bad))*100)
-    print('Score : ')
-    print(clf.score(usedData, usedValue))
+    print(clf.score(testSetX, testSetY))

@@ -1,4 +1,4 @@
-import importation
+import ImportCsv
 import matplotlib.pyplot as plt
 
 
@@ -9,14 +9,15 @@ import matplotlib.pyplot as plt
 # plt.ylabel('Mean Error')
 
 
-def drawSimilarities(listPlaceOfWordToCompare, precision, valueToCompare):
+def drawSimilarities(listPlaceOfWordToCompare, precision, valueToCompare, pathFile, draw = True):
     nbOk = []
-    file = importation.importcsv("../spambase.data")
+    file = ImportCsv.importcsv(pathFile)
     for placeOfWordToCompare in listPlaceOfWordToCompare:
         #print("place of word : ")
         #print(placeOfWordToCompare)
-        plt.figure()
-        plt.title('Word nb = ' + str(placeOfWordToCompare))
+        if draw :
+            plt.figure()
+            plt.title('Word nb = ' + str(placeOfWordToCompare))
 
         k = 0
         spamClasses = {"<value": [], "value<": []}
@@ -54,33 +55,36 @@ def drawSimilarities(listPlaceOfWordToCompare, precision, valueToCompare):
 
             results.append(totalSpam)
             results.append(totalNonSpam)
-
-            labels = "Spam", "Non Spam"
-            sizes = [totalSpam, totalNonSpam]
-            colors = ['yellowgreen', 'lightskyblue']
-            plt.subplot(210+nbPlot)
-            nbPlot+=1
-            plt.title("For : " + str(type) + " : " + str(valueToCompare) + " for the word nb : " + str(placeOfWordToCompare) + " with a number of " + str(totalType) + " emails concerned")
-            plt.pie(sizes, labels=labels, colors=colors,
-                    autopct='%1.1f%%', shadow=True, startangle=90)
+            if draw:
+                labels = "Spam", "Non Spam"
+                sizes = [totalSpam, totalNonSpam]
+                colors = ['yellowgreen', 'lightskyblue']
+                plt.subplot(210+nbPlot)
+                nbPlot+=1
+                plt.title("For : " + str(type) + " : " + str(valueToCompare) + " for the word nb : " + str(placeOfWordToCompare) + " with a number of " + str(totalType) + " emails concerned")
+                plt.pie(sizes, labels=labels, colors=colors,
+                        autopct='%1.1f%%', shadow=True, startangle=90)
 
         if (results[0]*100 > results[1]*100*precision or results[1]*100 > results[0]*100*precision):
             if (results[2] * 100 > results[3] * 100 * precision or results[3] *100 > results[2] * 100 *precision):
-                print("okk")
+                #print("okk")
                 nbOk.append(placeOfWordToCompare)
-                plt.axis('equal')
-                plt.savefig('PieChart01.png')
-                plt.show()
+                if draw :
+                    plt.axis('equal')
+                    plt.savefig('PieChart01.png')
+                    plt.show()
             else:
-                plt.close()
+                if draw:
+                    plt.close()
         else:
-            plt.close()
+            if draw:
+                plt.close()
 
 
     return nbOk
 
 
-print(drawSimilarities(range(57), 1.5, 0.01))
+#print(drawSimilarities(range(57), 1.5, 0.2, "../spambase.data"))
 
 '''
 
