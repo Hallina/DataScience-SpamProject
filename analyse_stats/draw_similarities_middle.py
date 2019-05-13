@@ -84,7 +84,7 @@ def drawSimilarities(listPlaceOfWordToCompare, precision, valueToCompare, pathFi
     return nbOk
 
 
-print(drawSimilarities(range(57), 1.5, 0.2, "../spambase.data"))
+#print(drawSimilarities(range(57), 1.5, 0.2, "../spambase.data"))
 
 '''
 

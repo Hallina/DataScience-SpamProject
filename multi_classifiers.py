@@ -43,39 +43,45 @@ for line in rowData:
     data.append(listLine)
 
 
+usedData = []
+usedValue = []
+for line in data:
+    listLine = []
+    for k in range(len(line)):
+        if k != 27 and k != 28 and k != 31 and k!=57:
+            listLine.append(line[k])
+    usedValue.append(line[-1])
+    usedData.append(listLine)
+
+
+testSetX = []
+testSetY = []
+for k in range(1000):
+    placeToTakeForTest = int(random() * len(usedData))
+    x = usedData.pop(placeToTakeForTest)
+    y = usedValue.pop(placeToTakeForTest)
+    testSetX.append(x)
+    testSetY.append(y)
+
+
+usedData = np.array(usedData)
+usedValue = np.array(usedValue)
+testSetX = np.array(testSetX)
+testSetY = np.array(testSetY)
+
+
 for nbClassifiers in range(len(classifiers)):
 
     print(names[nbClassifiers])
 
     # Load data
-    usedData = []
-    usedValue = []
-    for line in data:
-        listLine = []
-        for k in range(len(line)):
-            if k != 27 and k != 28 and k != 31 and k!=57:
-                listLine.append(line[k])
-        usedValue.append(line[-1])
-        usedData.append(listLine)
+
     '''data = np.array(data)
     print(data)
     '''
 
 
-    testSetX = []
-    testSetY = []
-    for k in range(1000):
-        placeToTakeForTest = int(random() * len(usedData))
-        x = usedData.pop(placeToTakeForTest)
-        y = usedValue.pop(placeToTakeForTest)
-        testSetX.append(x)
-        testSetY.append(y)
 
-
-    usedData = np.array(usedData)
-    usedValue = np.array(usedValue)
-    testSetX = np.array(testSetX)
-    testSetY = np.array(testSetY)
 
     #print(usedData[:1])
     clf = classifiers[nbClassifiers]
