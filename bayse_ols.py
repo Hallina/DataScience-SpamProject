@@ -8,6 +8,8 @@ from sklearn import metrics
 from sklearn.model_selection import train_test_split
 
 import matplotlib.pyplot as plt
+from bokeh.plotting import figure
+from bokeh.io import show as bokehShow
 
 train, test = train_test_split(importation.t, test_size=0.2)
 spamtrain, spamtest = train_test_split(importation.valspam, test_size=0.2)
@@ -26,16 +28,14 @@ predicted1 = ols.predict(test)
 
 
 
+# Create a blank figure with labels
+p = figure(plot_width = 600, plot_height = 600, 
+           title = 'Example Glyphs',
+           x_axis_label = 'X', y_axis_label = 'Y')
 
-lw = 2
 
-plt.figure(figsize=(6, 5))
-plt.title("Weights of the model")
-plt.plot(clf.coef_, color='lightgreen', linewidth=lw,
-         label="Bayesian Ridge estimate")
-plt.plot(ols.coef_, color='navy', linestyle='--', label="OLS estimate")
-plt.xlabel("Features")
-plt.ylabel("Values of the weights")
-plt.legend(loc="best", prop=dict(size=12))
 
-plt.show()
+# Add squares glyph
+p.square(clf.X_offset_, ols.coef_, size = 12, color = 'navy', alpha = 0.6)
+
+bokehShow(p)
