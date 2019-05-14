@@ -70,6 +70,8 @@ for tour in range(nbTurns):
 
     clf = AdaBoostClassifier(n_estimators = 200)
     clf = clf.fit(usedData, usedValue)
+    print("\n importance 1:")
+    print(clf.feature_importances_)
     value1 = clf.score(testSetX, testSetY)
 
 
@@ -110,6 +112,9 @@ for tour in range(nbTurns):
     testSetY = np.array(testSetY)
     clf = AdaBoostClassifier()
     clf = clf.fit(usedData, usedValue)
+    print("\n importance 2:")
+    print(goodLines1)
+    print(clf.feature_importances_)
     value2 = clf.score(testSetX, testSetY)
 
 
@@ -148,6 +153,9 @@ for tour in range(nbTurns):
 
     clf = AdaBoostClassifier()
     clf = clf.fit(usedData, usedValue)
+    print("\n importance 3:")
+    print(goodLines2)
+    print(clf.feature_importances_)
     value3 = clf.score(testSetX, testSetY)
 
 
