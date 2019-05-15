@@ -1,6 +1,6 @@
 from sklearn import tree
 from random import random
-from importation import importcsv
+from ImportCsv import importcsv
 import numpy as np
 
 
@@ -8,7 +8,7 @@ import numpy as np
 
 # Load data
 
-rowData = importcsv("spambase.data")
+rowData = importcsv("../spambase.data")
 data = []
 for line in rowData:
     listLine = []
@@ -37,7 +37,7 @@ print(data)
 
 testSetX1 = []
 testSetY1 = []
-for k in range (1000):
+for k in range (100):
     placeToTakeForTest = int(random() * len(usedData1))
     x = usedData1.pop(placeToTakeForTest)
     y = usedValue1.pop(placeToTakeForTest)

@@ -21,6 +21,7 @@ result = {}
 
 for tour in range(nbTurns):
 
+
     best = 0
     nbBest = 0
 

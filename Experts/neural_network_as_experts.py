@@ -50,68 +50,24 @@ for tour in range(nbTurns):
     '''
 
 
-    testSetX = []
-    testSetY = []
-    for k in range (1000):
-        placeToTakeForTest = int(random() * len(usedData))
-        x = usedData.pop(placeToTakeForTest)
-        y = usedValue.pop(placeToTakeForTest)
-        testSetX.append(x)
-        testSetY.append(y)
-
-
-    usedData = np.array(usedData)
-    usedValue = np.array(usedValue)
-    testSetX = np.array(testSetX)
-    testSetY = np.array(testSetY)
-
-    clf = MLPClassifier()
-    clf = clf.fit(usedData, usedValue)
-    print('Starte')
-    print(clf.predict(testSetX))
-    value1 = clf.score(testSetX, testSetY)
-
-
-
-
     ### Sorting type 1
 
 
 
-    usedData = []
-    usedValue = []
+    usedData1 = []
+    usedValue1 = []
     for line in data:
         listLine = []
         for k in range(len(line)):
             if k in goodLines1 and k not in [27, 28, 31, 57]:
             #if k not in [27, 28, 31, 57]:
                 listLine.append(line[k])
-        usedValue.append(line[-1])
-        usedData.append(listLine)
+        usedValue1.append(line[-1])
+        usedData1.append(listLine)
     '''data = np.array(data)
     print(data)
     '''
 
-
-    testSetX = []
-    testSetY = []
-    for k in range (100):
-        placeToTakeForTest = int(random() * len(usedData))
-        x = usedData.pop(placeToTakeForTest)
-        y = usedValue.pop(placeToTakeForTest)
-        testSetX.append(x)
-        testSetY.append(y)
-
-
-    usedData = np.array(usedData)
-    usedValue = np.array(usedValue)
-    testSetX = np.array(testSetX)
-    testSetY = np.array(testSetY)
-
-    clf = MLPClassifier()
-    clf = clf.fit(usedData, usedValue)
-    print(clf.predict(testSetX))
-    value2 = clf.score(testSetX, testSetY)
 
 
 
@@ -119,38 +75,91 @@ for tour in range(nbTurns):
 
 
 
-    usedData = []
-    usedValue = []
+    usedData2 = []
+    usedValue2 = []
     for line in data:
         listLine = []
         for k in range(len(line)):
             if k in goodLines2 and k not in [27, 28, 31, 57]:
                 # if k not in [27, 28, 31, 57]:
                 listLine.append(line[k])
-        usedValue.append(line[-1])
-        usedData.append(listLine)
+        usedValue2.append(line[-1])
+        usedData2.append(listLine)
     '''data = np.array(data)
     print(data)
     '''
 
     testSetX = []
     testSetY = []
+    testSetX1 = []
+    testSetY1 = []
+    testSetX2 = []
+    testSetY2 = []
+
     for k in range(100):
         placeToTakeForTest = int(random() * len(usedData))
         x = usedData.pop(placeToTakeForTest)
         y = usedValue.pop(placeToTakeForTest)
         testSetX.append(x)
         testSetY.append(y)
+        x1 = usedData1.pop(placeToTakeForTest)
+        y1 = usedValue1.pop(placeToTakeForTest)
+        testSetX1.append(x1)
+        testSetY1.append(y1)
+        x2 = usedData2.pop(placeToTakeForTest)
+        y2 = usedValue2.pop(placeToTakeForTest)
+        testSetX2.append(x2)
+        testSetY2.append(y2)
+
+
+
+
+
+
+
+
 
     usedData = np.array(usedData)
     usedValue = np.array(usedValue)
     testSetX = np.array(testSetX)
     testSetY = np.array(testSetY)
 
+
+
+    usedData1 = np.array(usedData1)
+    usedValue1 = np.array(usedValue1)
+    testSetX1 = np.array(testSetX1)
+    testSetY1 = np.array(testSetY1)
+
+    usedData2 = np.array(usedData2)
+    usedValue2 = np.array(usedValue2)
+    testSetX2 = np.array(testSetX2)
+    testSetY2 = np.array(testSetY2)
+
+
+
+
+
+
+
+
+
+
+
     clf = MLPClassifier()
     clf = clf.fit(usedData, usedValue)
     print(clf.predict(testSetX))
-    value3 = clf.score(testSetX, testSetY)
+    value1 = clf.score(testSetX, testSetY)
+
+    clf = MLPClassifier()
+    clf = clf.fit(usedData1, usedValue1)
+    print(clf.predict(testSetX1))
+    value2 = clf.score(testSetX1, testSetY1)
+
+    clf = MLPClassifier()
+    clf = clf.fit(usedData2, usedValue2)
+    print(clf.predict(testSetX2))
+    value3 = clf.score(testSetX2, testSetY2)
 
 
     print("And in fact the real values are : ")

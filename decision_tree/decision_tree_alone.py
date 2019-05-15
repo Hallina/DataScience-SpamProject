@@ -1,13 +1,13 @@
 from sklearn import tree
 from random import random
-from importation import importcsv
+from ImportCsv import importcsv
 import numpy as np
 
 
 
 
 # Load data
-rowData = importcsv("spambase.data")
+rowData = importcsv("../spambase.data")
 data = []
 for line in rowData:
     listLine = []

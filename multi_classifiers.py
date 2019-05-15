@@ -16,11 +16,11 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
-
+dicoResults = {}
 
 classifiers = [
     KNeighborsClassifier(3),
-    SVC(gamma=2, C=1),
+    #SVC(gamma=2, C=1),
     #GaussianProcessClassifier(1.0 * RBF(1.0)),
     DecisionTreeClassifier(max_depth=5),
     RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
@@ -30,7 +30,7 @@ classifiers = [
     QuadraticDiscriminantAnalysis()]
     #SVC(kernel="linear", C=0.025)]
 
-names = ["Nearest Neighbors",  "RBF SVM", #"Gaussian Process",
+names = ["Nearest Neighbors",  #"RBF SVM", "Gaussian Process",
          "Decision Tree", "Random Forest", "Neural Net", "AdaBoost",
          "Naive Bayes", "QDA"] #"Linear SVM"]
 
@@ -56,7 +56,7 @@ for line in data:
 
 testSetX = []
 testSetY = []
-for k in range(1000):
+for k in range(20):
     placeToTakeForTest = int(random() * len(usedData))
     x = usedData.pop(placeToTakeForTest)
     y = usedValue.pop(placeToTakeForTest)
@@ -101,3 +101,32 @@ for nbClassifiers in range(len(classifiers)):
             bad+=1
 
     print(clf.score(testSetX, testSetY))
+    dicoResults[nbClassifiers] = a
+
+
+result = []
+for key in dicoResults:
+    print(dicoResults[key])
+for line in range(len(testSetY)):
+    value = 0
+    for key in dicoResults:
+        value+=dicoResults[key][line]
+
+    if value >= 3:
+        result.append(1)
+    else:
+        result.append(0)
+
+goodChoices = 0
+for k in range(len(result)):
+    if result[k] == testSetY[k]:
+        goodChoices+=1
+
+print("Au final : ")
+print(goodChoices/len(result))
+
+print(result)
+print(testSetY)
+
+
+
