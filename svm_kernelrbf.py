@@ -2,6 +2,7 @@ import importation
 
 from sklearn import svm
 from sklearn import metrics
+from sklearn.feature_selection import RFE
 
 from sklearn.model_selection import train_test_split
 
@@ -19,7 +20,7 @@ predicted = clf.predict(test)
 
 print(clf.score(test, spamtest))
 
-print("Classification report for classifier %s:\n%s\n"
-      % (clf, metrics.classification_report(expected, predicted)))
+#print("Classification report for classifier %s:\n%s\n"
+#      % (clf, metrics.classification_report(expected, predicted)))
 
 print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))

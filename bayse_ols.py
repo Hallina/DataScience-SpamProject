@@ -21,11 +21,21 @@ ols = LinearRegression()
 clf.fit(train, spamtrain)
 ols.fit(train, spamtrain)
 
-expected = spamtest
-predicted = clf.predict(test)
 
+
+expected = spamtest
+
+predicted = clf.predict(test)
 predicted1 = ols.predict(test)
 
+
+#print(spamtrain)
+
+#print(predicted)
+
+
+print(clf.score(test, spamtest))
+print(ols.score(test, spamtest))
 
 
 # Create a blank figure with labels

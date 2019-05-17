@@ -1,8 +1,10 @@
 import importation
 
 from sklearn import svm
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn import metrics
 from sklearn import preprocessing
+from sklearn.decomposition import PCA
 
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
@@ -15,7 +17,12 @@ train, test = train_test_split(importation.t, test_size=0.05)
 spamtrain, spamtest = train_test_split(importation.valspam, test_size=0.05)
 
 clf = make_pipeline(preprocessing.StandardScaler(),
-                    svm.SVC(C=1, gamma=80))
+                    PCA(n_components=2),
+                    KNeighborsClassifier(n_neighbors=5,
+                                         weights="uniform",
+                                         algorithm="auto",
+                                         n_jobs=4)
+                    )
 
 clf.fit(train, spamtrain)
 

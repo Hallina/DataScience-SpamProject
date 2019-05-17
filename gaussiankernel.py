@@ -25,9 +25,9 @@ for i, kernel in enumerate(kernels):
 
     print(clf.score(train, spamtrain))
 
-    print("Classification report for classifier %s:\n%s\n"
-          % (clf, metrics.classification_report(expected, predicted)))
+    #print("Classification report for classifier %s:\n%s\n"
+     #     % (clf, metrics.classification_report(expected, predicted)))
 
-    print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
+    #print("Confusion matrix:\n%s" % metrics.confusion_matrix(expected, predicted))
 
-    print("LA SUITE...\n\n\n\n")
+    #print("LA SUITE...\n\n\n\n")

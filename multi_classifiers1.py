@@ -1,6 +1,6 @@
 from sklearn import tree
 from random import random
-from importation import importcsv
+import importation
 import numpy as np
 from matplotlib.colors import ListedColormap
 from sklearn.model_selection import train_test_split
@@ -16,7 +16,10 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
+train, test = train_test_split(importation.t, test_size=0.05)
+spamtrain, spamtest = train_test_split(importation.valspam, test_size=0.05)
 
+expected = spamtest
 
 classifiers = [
     KNeighborsClassifier(3),
@@ -32,66 +35,21 @@ classifiers = [
 
 names = ["Nearest Neighbors",  "RBF SVM", #"Gaussian Process",
          "Decision Tree", "Random Forest", "Neural Net", "AdaBoost",
-         "Naive Bayes", "QDA"] #"Linear SVM"]
-
-rowData = importcsv("spambase.data")
-data = []
-for line in rowData:
-    listLine = []
-    for value in  line:
-        listLine.append(float(value))
-    data.append(listLine)
+         "Naive Bayes", "QDA"]#, "Linear SVM"]
 
 
 for nbClassifiers in range(len(classifiers)):
 
     print(names[nbClassifiers])
 
-    # Load data
-    usedData = []
-    usedValue = []
-    for line in data:
-        listLine = []
-        for k in range(len(line)):
-            if k != 27 and k != 28 and k != 31 and k!=57:
-                listLine.append(line[k])
-        usedValue.append(line[-1])
-        usedData.append(listLine)
-    '''data = np.array(data)
-    print(data)
-    '''
+    #load data
 
-
-    testSetX = []
-    testSetY = []
-    for k in range(1000):
-        placeToTakeForTest = int(random() * len(usedData))
-        x = usedData.pop(placeToTakeForTest)
-        y = usedValue.pop(placeToTakeForTest)
-        testSetX.append(x)
-        testSetY.append(y)
-
-
-    usedData = np.array(usedData)
-    usedValue = np.array(usedValue)
-    testSetX = np.array(testSetX)
-    testSetY = np.array(testSetY)
-
-    #print(usedData[:1])
+    
     clf = classifiers[nbClassifiers]
-    clf = clf.fit(usedData, usedValue)
+    clf.fit(train, spamtrain)
 
 
-    a = clf.predict(testSetX)
-    #print(a)
-    #print(testSetY)
-
-    good = 0
-    bad = 0
-    for k in range(len(a)):
-        if a[k] == testSetY[k]:
-            good+=1
-        else:
-            bad+=1
-
-    print(clf.score(testSetX, testSetY))
+    predicted = clf.predict(test)
+    
+    print(clf.score(train, spamtrain))
+    print(clf.score(test, spamtest))

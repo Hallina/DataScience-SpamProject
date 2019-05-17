@@ -4,6 +4,22 @@ import pandas as pd
 import numpy as np
 import csv
 
+
+
+def importcsv(pathFile):
+
+    firstline = False
+    with open(pathFile, encoding='ascii', newline='') as csvfile:
+        reader = csv.reader(csvfile, delimiter=',')
+        #global importation
+        for row in reader:
+            importation.append(row)
+        csvfile.close()
+
+    return importation
+
+
+
 importation = list()
 
 t = pd.read_csv("spambase.data", names=['word_freq_make'
@@ -65,6 +81,7 @@ t = pd.read_csv("spambase.data", names=['word_freq_make'
                 ,'capital_run_length_total'
                 ,'isSpam'])
 
+
 # shuffle du dataset de base 
 t.reindex(np.random.permutation(t.index))
 
@@ -73,16 +90,11 @@ t.reindex(np.random.permutation(t.index))
 #on récupère la variable isSpam
 valspam = t.pop('isSpam').values
 
-def importcsv():
-    firstline = False
-    with open("spambase.data", encoding='ascii', newline='') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        global importation
-        for row in reader:
-            importation.append(row)
-        csvfile.close()
 
-    return importation
+
+
+#data = importcsv()
+#print(data[0:10])
 
 t.pop('word_freq_650')
 t.pop('word_freq_george')
