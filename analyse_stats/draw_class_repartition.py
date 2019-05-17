@@ -65,26 +65,32 @@ def drawSimilarities(listPlaceOfWordToCompare, precision, valueToCompare, pathFi
                 plt.pie(sizes, labels=labels, colors=colors,
                         autopct='%1.1f%%', shadow=True, startangle=90)
 
-        if (results[0]*100 > results[1]*100*precision or results[1]*100 > results[0]*100*precision):
-            if (results[2] * 100 > results[3] * 100 * precision or results[3] *100 > results[2] * 100 *precision):
-                #print("okk")
-                nbOk.append(placeOfWordToCompare)
-                if draw :
-                    plt.axis('equal')
-                    plt.savefig('PieChart01.png')
-                    plt.show()
-            else:
-                if draw:
-                    plt.close()
+        print(results)
+        if (abs(results[0] - results[2]) > precision) :
+
+            #print("okk")
+            nbOk.append(placeOfWordToCompare)
+            if draw :
+                plt.axis('equal')
+                plt.savefig('PieChart01.png')
+                plt.show()
+
         else:
             if draw:
                 plt.close()
 
 
     return nbOk
+'''
+val = {}
+for k in [0.000001, 0.00001, 0.0001, 0.001, 0.01, 0.1, 1, 3]:
+    val[k] = len(drawSimilarities(range(57), 0.3, k, "../spambase.data", False))
+
+print(val)
+#'''
 
 
-print(drawSimilarities(range(57), 1., 0.2, "../spambase.data"))
+#print(drawSimilarities(range(57), 0.4, 0.001, "../spambase.data"))
 
 '''
 
