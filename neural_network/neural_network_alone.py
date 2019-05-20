@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 pathFile = "../spambase.data"
 better = 0
 worst = 0
-nbTurns = 1
+nbTurns = 10
 totMod1 = 0
 totMod2 = 0
 totNonMod = 0
@@ -19,8 +19,8 @@ valueToCompare = 0.001
 
 goodLines1 = drawSimilarities1(range(57), 2, valueToCompare, pathFile, False)
 goodLines2 = drawSimilarities2(range(57), precision, valueToCompare, pathFile, False)
-print(goodLines1)
-print(goodLines2)
+#print(goodLines1)
+#print(goodLines2)
 
 
 
@@ -41,13 +41,54 @@ for tour in range(nbTurns):
         listLine = []
         for k in range(len(line)):
             #if k in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 37, 46, 48, 50, 51, 52, 53] and k not in [27, 28, 31, 57]:
-            if k not in [27, 28, 31, 57]:
+            if k not in [27, 28, 31, 57, 3, 19, 21, 22 ,26, 29, 30, 31, 32, 33, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 49]:
                 listLine.append(line[k])
         usedValue.append(line[-1])
         usedData.append(listLine)
     '''data = np.array(data)
     print(data)
     '''
+
+
+    testSetX = []
+    testSetY = []
+    for k in range (200):
+        placeToTakeForTest = int(random() * len(usedData))
+        x = usedData.pop(placeToTakeForTest)
+        y = usedValue.pop(placeToTakeForTest)
+        testSetX.append(x)
+        testSetY.append(y)
+
+
+    usedData = np.array(usedData)
+    usedValue = np.array(usedValue)
+    testSetX = np.array(testSetX)
+    testSetY = np.array(testSetY)
+
+    clf = MLPClassifier()
+    clf = clf.fit(usedData, usedValue)
+    #print('Starte')
+    #print(clf.predict(testSetX))
+    value1 = clf.score(testSetX, testSetY)
+
+
+
+
+    ### Sorting type 1
+
+
+    '''
+    usedData = []
+    usedValue = []
+    for line in data:
+        listLine = []
+        for k in range(len(line)):
+            if k in goodLines1 and k not in [27, 28, 31, 57]:
+            #if k not in [27, 28, 31, 57]:
+                listLine.append(line[k])
+        usedValue.append(line[-1])
+        usedData.append(listLine)
+    
 
 
     testSetX = []
@@ -67,59 +108,18 @@ for tour in range(nbTurns):
 
     clf = MLPClassifier()
     clf = clf.fit(usedData, usedValue)
-    print('Starte')
-    print(clf.predict(testSetX))
-    value1 = clf.score(testSetX, testSetY)
-
-
-
-
-    ### Sorting type 1
-
-
-
-    usedData = []
-    usedValue = []
-    for line in data:
-        listLine = []
-        for k in range(len(line)):
-            if k in goodLines1 and k not in [27, 28, 31, 57]:
-            #if k not in [27, 28, 31, 57]:
-                listLine.append(line[k])
-        usedValue.append(line[-1])
-        usedData.append(listLine)
-    '''data = np.array(data)
-    print(data)
-    '''
-
-
-    testSetX = []
-    testSetY = []
-    for k in range (100):
-        placeToTakeForTest = int(random() * len(usedData))
-        x = usedData.pop(placeToTakeForTest)
-        y = usedValue.pop(placeToTakeForTest)
-        testSetX.append(x)
-        testSetY.append(y)
-
-
-    usedData = np.array(usedData)
-    usedValue = np.array(usedValue)
-    testSetX = np.array(testSetX)
-    testSetY = np.array(testSetY)
-
-    clf = MLPClassifier()
-    clf = clf.fit(usedData, usedValue)
-    print(clf.predict(testSetX))
+    #print(clf.predict(testSetX))
     value2 = clf.score(testSetX, testSetY)
+    '''
 
 
 
     ### Sorting type 2
+    print(value1)
+    totNonMod += value1
 
 
-
-    usedData = []
+    '''usedData = []
     usedValue = []
     for line in data:
         listLine = []
@@ -128,10 +128,7 @@ for tour in range(nbTurns):
                 # if k not in [27, 28, 31, 57]:
                 listLine.append(line[k])
         usedValue.append(line[-1])
-        usedData.append(listLine)
-    '''data = np.array(data)
-    print(data)
-    '''
+    
 
     testSetX = []
     testSetY = []
@@ -159,11 +156,7 @@ for tour in range(nbTurns):
 
 
 
-    '''print('Values : ')
-    print(value1)
-    print(value2)
-    print(value3)
-    '''
+    
 
     totMod2 += value3
     totMod1 += value2
@@ -172,21 +165,23 @@ for tour in range(nbTurns):
     if value1>value3:
         worst += 1
     else:
-        better += 1
+        better += 1'''
 
-print("\n")
+'''print("\n")
 print("Percent of better")
 print((better/nbTurns)*100)
 print("Percent of worst ")
 print((worst/nbTurns)*100)
 print("\n")
+'''
 print("Average of non modulated")
 print(totNonMod/nbTurns)
+'''
 print("Average of modulated type 1")
 print(totMod1/nbTurns)
 print("Average of modulated type 2")
 print(totMod2/nbTurns)
-
+'''
 '''
 plt.figure()
 plt.title('Word nb = ' )

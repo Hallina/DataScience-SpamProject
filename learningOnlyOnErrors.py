@@ -16,28 +16,20 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
 
+listErrorsToStudy = [1783, 1719, 3332, 4366, 2197, 1727, 2362, 1823, 2346, 1297, 1715, 4295, 2380, 896, 4333, 374, 1484, 3814, 2466, 189, 4127, 686, 3056, 1605, 4365, 1795, 1637, 381, 3824, 845, 1838, 274, 2394, 2939, 305, 3889, 1675, 2552, 263, 1799, 2951, 3947, 4137, 1173, 1015, 294, 3460, 2075, 3546, 2219, 2042, 2157, 1811, 1590, 3490, 3926, 2136, 3243, 1228, 2885]
+
 dicoResults = {}
 
 classifiers = [
     AdaBoostClassifier(n_estimators = 200),
-    SVC(kernel="linear", C=0.025),
     MLPClassifier(),
     DecisionTreeClassifier(max_depth=5),
     RandomForestClassifier(max_depth=5, n_estimators=10, max_features=1),
     KNeighborsClassifier(n_neighbors = 2, weights = "distance"),
-
-    #GaussianProcessClassifier(1.0 * RBF(1.0)),
-
-
-
-    #GaussianNB(),
     SVC(gamma=2, C=1)
-    #QuadraticDiscriminantAnalysis(),
     ]
 
-names = ["AdaBoost", "Linear SVM", "Neural Net", "Decision Tree", "Random Forest",  "Nearest Neighbors",
-          "RBF SVM"
-         ]#"QDA",#"Gaussian Process","Naive Bayes"
+names = ["AdaBoost", "Neural Net", "Decision Tree", "Random Forest",  "Nearest Neighbors","RBF SVM"]
 
 rowData = importcsv("spambase.data")
 data = []
@@ -53,7 +45,8 @@ usedValue = []
 for line in data:
     listLine = []
     for k in range(len(line)):
-        if k not in [27, 28, 31, 57, 0,3,14,16,22,24,26,30,31, 32, 33, 34, 37, 39, 40, 41,42,  46,47, 50, 51]:
+        #if k not in [27, 28, 31, 57, 0,3,14,16,22,24,26,30,31, 32, 33, 34, 37, 39, 40, 41,42,  46,47, 50, 51]: 0,3,14,16,22,24,26,30,31, 32, 33, 34, 37, 39, 40, 41,42,  46,47, 50, 51
+        if k not in [27, 28, 31, 57 ]:
             listLine.append(line[k])
     usedValue.append(line[-1])
     usedData.append(listLine)
@@ -61,8 +54,7 @@ for line in data:
 
 testSetX = []
 testSetY = []
-for k in range(24):
-    placeToTakeForTest = int(random() * len(usedData))
+for placeToTakeForTest in listErrorsToStudy:
     x = usedData.pop(placeToTakeForTest)
     y = usedValue.pop(placeToTakeForTest)
     testSetX.append(x)
@@ -75,62 +67,24 @@ testSetX = np.array(testSetX)
 testSetY = np.array(testSetY)
 scaler.fit(usedData)
 usedDataScale = scaler.transform(usedData)
-usedValueScale = scaler.transform(usedValue)
+testSetXScale = scaler.transform(testSetX)
 
 
 
 print(testSetY)
 for nbClassifiers in range(len(classifiers)):
+    print(names[nbClassifiers])
 
-    #print(names[nbClassifiers])
-
-    # Load data
-
-    '''data = np.array(data)
-    print(data)
-    '''
-
-
-
-
-    #print(usedData[:1])
     clf = classifiers[nbClassifiers]
     clf = clf.fit(usedData, usedValue)
 
-
     a = clf.predict(testSetX)
-    print(a)
+    #print(a)
     #print(testSetY)
 
 
-    #print(clf.score(testSetX, testSetY))
+    print(clf.score(testSetX, testSetY))
     dicoResults[nbClassifiers] = a
 
-'''
-
-result = []
-for key in dicoResults:
-    print(dicoResults[key])
-for line in range(len(testSetY)):
-    value = 0
-    for key in dicoResults:
-        value+=dicoResults[key][line]
-
-    if value >= 3:
-        result.append(1)
-    else:
-        result.append(0)
-
-goodChoices = 0
-for k in range(len(result)):
-    if result[k] == testSetY[k]:
-        goodChoices+=1
-
-print("Au final : ")
-print(goodChoices/len(result))
-
-print(result)
-print(testSetY)
-'''
 
 

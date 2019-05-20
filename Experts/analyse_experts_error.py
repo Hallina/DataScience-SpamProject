@@ -6,6 +6,7 @@ from analyse_stats.draw_similarities_middle import drawSimilarities as drawSimil
 from analyse_stats.draw_class_repartition import drawSimilarities as drawSimilarities2
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn import tree
 
 
 
@@ -21,14 +22,17 @@ totMod2 = 0
 totNonMod = 0
 precision = 0.3
 valueToCompare = 0.001
-nbElementTest = 100
+nbElementTest = 20
 
 goodLines1 = drawSimilarities1(range(57), 2, valueToCompare, pathFile, False)
 goodLines2 = drawSimilarities2(range(57), precision, valueToCompare, pathFile, False)
-print(goodLines1)
-print(goodLines2)
+#print(goodLines1)
+#print(goodLines2)
 
 totGen = 0
+error = 0
+listErrors = []
+listOk = []
 
 
 
@@ -48,7 +52,6 @@ for tour in range(nbTurns):
     for line in data:
         listLine = []
         for k in range(len(line)):
-            #if k in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 19, 20, 21, 22, 23, 37, 46, 48, 50, 51, 52, 53] and k not in [27, 28, 31, 57]:
             if k not in [27, 28, 31, 57]:
                 listLine.append(line[k])
         usedValue.append(line[-1])
@@ -63,7 +66,6 @@ for tour in range(nbTurns):
         listLine = []
         for k in range(len(line)):
             if k in goodLines2 and k not in [27, 28, 31, 57]:
-                # if k not in [27, 28, 31, 57]:
                 listLine.append(line[k])
         usedValue1.append(line[-1])
         usedData1.append(listLine)
@@ -110,7 +112,7 @@ for tour in range(nbTurns):
     #print(clf1.predict(testSetX))
     value1 = clf1.predict(testSetX)
     value1Score = clf1.score(testSetX, testSetY)
-    #print(value1Score)
+
 
     clf2 = MLPClassifier()
     clf2 = clf2.fit(usedData, usedValue)
@@ -118,7 +120,7 @@ for tour in range(nbTurns):
     #print(clf2.predict(testSetX))
     value2 = clf2.predict(testSetX)
     value2Score = clf2.score(testSetX, testSetY)
-    #print(value2Score)
+
 
     clf3 = KNeighborsClassifier(n_neighbors=nbNeighbors, weights=weightValue)
     clf3 = clf3.fit(usedData1, usedValue1)
@@ -126,18 +128,33 @@ for tour in range(nbTurns):
     #print(clf3.predict(testSetX1))
     value3 = clf3.predict(testSetX1)
     value3Score = clf3.score(testSetX1, testSetY1)
-    #print(value3Score)
+
+
+    clf4 = tree.DecisionTreeClassifier()
+    clf4 = clf4.fit(usedData, usedValue)
+    # print("\n importance 4:")
+    #print(clf4.predict(testSetX))
+    value4 = clf4.predict(testSetX)
+    value4Score = clf4.score(testSetX, testSetY)
+
+    '''print(value1Score)
+    print(value2Score)
+    print(value3Score)
+    print(value4Score)'''
 
     #print("Et en vrai")
 
-    #print(testSetY)
+
 
     result = []
     for k in range(nbElementTest):
-        valTot = value1[k] + value2[k] + value3[k]
-        if valTot == 1 or valTot == 0:
+        valTot = value1[k] + value2[k] + value4[k] #+ value3[k]
+        #print(valTot)
+        if valTot in [0,1]:
+            #print('0')
             result.append(0)
         else:
+            #print('1')
             result.append(1)
 
     goodChoices = 0
@@ -146,11 +163,65 @@ for tour in range(nbTurns):
             goodChoices+=1
 
     #print("Au final : ")
+    #print(result)
+    #print(testSetY)
+
+    for line in range(len(testSetX)):
+        if int(result[line]) != int(testSetY[line]):
+            error += 1
+            listErrors.append(testSetX[line])
+            #print(testSetX[line])
+        else:
+            listOk.append(testSetX[line])
+
     #print(goodChoices/len(result))
 
     totGen += goodChoices/len(result)
 
-print(totGen/nbTurns)
+
+dictionnaireErreurs = {}
+for k in range(len(listErrors[0])):
+    dictionnaireErreurs[k] = 0
+
+for errorRegistered in listErrors:
+    for k in range(len(listErrors[0])):
+        dictionnaireErreurs[k] += errorRegistered[k]/len(listErrors)
 
 
+
+
+dictionnaireErreurs = {}
+for k in range(len(listErrors[0])):
+    dictionnaireErreurs[k] = 0
+
+for errorRegistered in listErrors:
+    for k in range(len(listErrors[0])):
+        dictionnaireErreurs[k] += errorRegistered[k]
+
+
+for key in dictionnaireErreurs :
+    dictionnaireErreurs[key] /= len(errorRegistered)
+
+
+
+
+dictionnaireBons = {}
+for k in range(len(listOk[0])):
+    dictionnaireBons[k] = 0
+
+for OKRegistered in listOk:
+    for k in range(len(listOk[0])):
+        dictionnaireBons[k] += OKRegistered[k]
+
+for key in dictionnaireBons :
+    dictionnaireBons[key] /= len(OKRegistered)
+
+for key in dictionnaireBons :
+
+    a = dictionnaireErreurs[key] / len(errorRegistered)
+    b = dictionnaireBons[key] / len(OKRegistered)
+    if a>b*100 or b>100*a:
+        print(key)
+        print(a)
+        print(b)
 
