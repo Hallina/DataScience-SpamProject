@@ -1,4 +1,4 @@
-import ImportCsv
+from importation import importcsv
 import matplotlib.pyplot as plt
 
 
@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 def drawSimilarities(listPlaceOfWordToCompare, precision, valueToCompare, pathFile, draw = True):
     nbOk = []
-    file = ImportCsv.importcsv(pathFile)
+    file = importcsv(pathFile)
     for placeOfWordToCompare in listPlaceOfWordToCompare:
         #print("place of word : ")
         #print(placeOfWordToCompare)
@@ -84,8 +84,8 @@ def drawSimilarities(listPlaceOfWordToCompare, precision, valueToCompare, pathFi
     return nbOk
 
 
-#print(drawSimilarities(range(57), 1.5, 0.2, "../spambase.data"))
 
+#print(drawSimilarities(range(57), 1.5, 0.2, "../spambase.data"))
 '''
 
 import matplotlib.pyplot as plt
