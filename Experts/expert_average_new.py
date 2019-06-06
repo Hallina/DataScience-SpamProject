@@ -2,13 +2,16 @@ from sklearn.neural_network import MLPClassifier
 from random import random
 from ImportCsv import importcsv
 import numpy as np
-from analyse_stats.draw_similarities_middle import drawSimilarities as drawSimilarities1
+#from analyse_stats.draw_similarities_middle import drawSimilarities as drawSimilarities1
 from analyse_stats.draw_class_repartition import drawSimilarities as drawSimilarities2
 from sklearn.ensemble import AdaBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import tree
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+
+from sklearn.metrics import confusion_matrix
+
 
 
 
@@ -24,9 +27,12 @@ totMod2 = 0
 totNonMod = 0
 precision = 0.3
 valueToCompare = 0.001
-nbElementTest = 1000
+nbElementTest = 500
 
-goodLines1 = drawSimilarities1(range(57), 2, valueToCompare, pathFile, False)
+max_iter = 100
+param = {'solver': 'adam', 'learning_rate_init': 0.01}
+
+#goodLines1 = drawSimilarities1(range(57), 2, valueToCompare, pathFile, False)
 goodLines2 = drawSimilarities2(range(57), precision, valueToCompare, pathFile, False)
 #print(goodLines1)
 #print(goodLines2)
@@ -38,7 +44,8 @@ listPb = []
 listNoPb = []
 
 clsf1 = AdaBoostClassifier(n_estimators=200)
-clsf2 = MLPClassifier()
+#clsf2 = MLPClassifier()
+clsf2 = MLPClassifier(verbose=0, random_state=0,max_iter=max_iter, **param)
 clsf3 = KNeighborsClassifier(n_neighbors=nbNeighbors, weights=weightValue)
 clsf4 = tree.DecisionTreeClassifier()
 clsf5 = SVC(kernel="linear", C=0.2)
@@ -174,6 +181,8 @@ for tour in range(nbTurns):
     clf = clsf5.fit(usedDataScale2, usedValue)
     value5Score = clf.score(testSetXScale2, testSetY)
     value5 = clf.predict(testSetXScale2)
+    print("value : ")
+    print(value5)
 
 
 
@@ -293,6 +302,16 @@ for tour in range(nbTurns):
 
 
 
+    resultAverage3Experts = []
+    for line in range(len(value1)):
+        #print(value5[k])
+        if value1Pred[line] + value2Pred[line] + value5[line]>=2:
+            resultAverage3Experts.append(1)
+        else:
+            resultAverage3Experts.append(0)
+
+
+
     #print("Au final : ")
     print(value1)
     print(value2)
@@ -301,6 +320,9 @@ for tour in range(nbTurns):
     print(value5)
     print(result)
     print(testSetY)
+    print(resultAverage3Experts)
+
+
 
     good = 0
     for lk in range(len(result)):
@@ -321,6 +343,11 @@ for tour in range(nbTurns):
 print(tot/nbTurns)
 print("Cancelled : ")
 print(totCancelled)
+
+
+print('Confusions : ')
+print(confusion_matrix(testSetY,value1Pred))
+print(confusion_matrix(testSetY,value2Pred))
 
 #print(listPb)
 

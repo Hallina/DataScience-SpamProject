@@ -64,8 +64,7 @@ def importcsv():
                     ,'capital_run_length_total'
                     ,'isSpam'])
 
-    # shuffle du dataset de base
-    t.reindex(np.random.permutation(t.index))
+
 
     #on récupère la variable isSpam
     valspam = t.pop('isSpam').values

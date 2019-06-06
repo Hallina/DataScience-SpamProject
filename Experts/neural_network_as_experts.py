@@ -24,7 +24,7 @@ print(goodLines2)
 
 
 
-for tour in range(nbTurns):
+for tour in range(nbTurns, percentElementTest = 0.1):
     print(tour)
     # Load data
     rowData = importcsv(pathFile)
