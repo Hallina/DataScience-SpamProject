@@ -82,8 +82,21 @@ t = pd.read_csv("spambase.data", names=['word_freq_make'
                 ,'isSpam'])
 
 
+#suppression anomaly
+"""
+t.drop([1753])
+t.drop([1762])
+t.drop([2014])
+t.drop([1964, 2053, 2270, 2574,
+        2630, 2673, 2696, 2848,
+        2915, 2974, 3245, 3272,
+        3303, 3363, 3423, 3490,
+        3561, 3562, 4019, 4020,
+        4039])
+"""
+
 # shuffle du dataset de base 
-t.reindex(np.random.permutation(t.index))
+#t.reindex(np.random.permutation(t.index))
 
 
 
