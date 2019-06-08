@@ -18,7 +18,7 @@ from sklearn.metrics import confusion_matrix
 
 resultBest = 0
 resultOthers = 0
-nbTurns = 50
+nbTurns = 1
 
 
 
@@ -28,7 +28,7 @@ for kll in range(nbTurns):
     setX, setY = importcsv()
     X = setX.values.tolist()
     y = setY.tolist()
-    nbOfAnomalies = find_anomalies("Robust covariance")
+    nbOfAnomalies = find_anomalies("Local Outlier Factor")
 
 
     nbAnomalyDelete = 0
@@ -146,8 +146,9 @@ for kll in range(nbTurns):
     resultOthers += (nbNoChoiceOK/nbSuppr)*100
 
 
-
+print("results of the one we are sure")
 print(resultBest/nbTurns)
+print("result for the other ones")
 print(resultOthers/nbTurns)
 
 

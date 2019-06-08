@@ -110,6 +110,7 @@ for nbAnswer in range(len(definiteAnswers)):
             nbOk +=1
 
         else:
+            print("Nb of sure answers : ")
             print(nbAnswer)
             #print(choice[nbAnswer])
             answersChoice[choice[nbAnswer]] += 1
@@ -119,14 +120,18 @@ for nbAnswer in range(len(definiteAnswers)):
         if pred["Extra tree"][nbAnswer] == y_t[nbAnswer]:
             nbNoChoiceOK += 1
 
-print((nbOk/(len(definiteAnswers)-nbSuppr))*100)
-print(nbSuppr)
-print(definiteAnswers)
-print(pred["Adaboost"])
-print(y_t)
-print(len(y_t))
-print(answersChoice)
 
+print("percent of good sure answers")
+print((nbOk/(len(definiteAnswers)-nbSuppr))*100)
+
+print("nb of not sure answers")
+print(nbSuppr)
+#print(definiteAnswers)
+#print(pred["Adaboost"])
+#print(y_t)
+#print(len(y_t))
+#print(answersChoice)
+print("results for  not sure answers")
 print((nbNoChoiceOK/nbSuppr)*100)
 
 
