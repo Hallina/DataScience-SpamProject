@@ -49,6 +49,12 @@ bests Whithout Anomalies : groupe des experts ne traitant que les lignes non con
 
 
 
+Dossiers "Resultats" et "Analyse Stats" et "Analyses Word" :
+        Analyses de répartition de mots dans la base 
+        Grpahiques des résultats
+
+
+
 
 
 
